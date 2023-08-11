@@ -4,7 +4,6 @@
   "description": "A bank versioned API",
   "main": "server.js",
   "scripts": {
-    "test": "mocha test/*.test.js",
     "start": "nodemon server.js"
   },
   "repository": {
@@ -26,6 +25,7 @@
     "express-rate-limit": "^6.9.0",
     "helmet": "^7.0.0",
     "jsonwebtoken": "^9.0.1",
+    "loglevel": "^1.8.1",
     "mongodb": "^5.7.0",
     "mongoose": "^7.4.2",
     "morgan": "^1.10.0"

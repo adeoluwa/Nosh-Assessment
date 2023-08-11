@@ -5,22 +5,22 @@ const Schema = mongoose.Schema;
 const TransactionSchema = new Schema({
   fromAccountId: {
     type: Schema.Types.ObjectId,
-    ref: 'Account',
+    ref: 'User',
     required: true,
   },
   toAccountId: {
     type: Schema.Types.ObjectId,
-    ref: 'Account',
+    ref: 'User',
     required: true,
   },
-  amount:{
-    type:Number,
-    required:true,
+  amount: {
+    type: Number,
+    required: true,
   },
-  date:{
-    type:Date,
-    default:Date.now()
-  }
+  date: {
+    type: Date,
+    default: Date.now(),
+  },
 });
 
 const Transaction = mongoose.model('Transaction', TransactionSchema);

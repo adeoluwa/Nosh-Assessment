@@ -6,13 +6,13 @@ const authRoutes = require('./auth');
 
 const accountRoutes = require('./accounts');
 
-const transferRoutes = require('./transfer');
+const transferRoutes = require('./initTransfer');
 
 
 router.use('/auth', authRoutes);
 
 router.use('/accounts', accountRoutes);
 
-router.use('/transfer', transferRoutes);
+router.use('/init', transferRoutes);
 
 module.exports = router;

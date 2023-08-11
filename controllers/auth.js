@@ -8,7 +8,6 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/User.js');
 
-
 // Register Users
 module.exports = {
   signup: async (req, res) => {
@@ -19,7 +18,7 @@ module.exports = {
 
       const hashedpassword = await bcrypt.hash(password, salt);
 
-      const accountNumber = Math.random().toString(36).substring(7)
+      let accountNumber = Math.random().toString(36).substring(7);
 
       const newUser = new User({
         firstName,
