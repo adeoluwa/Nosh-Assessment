@@ -12,24 +12,40 @@ const mongoose = require('mongoose')
 
 const dotenv = require('dotenv')
 
+const cors = require('cors')
+
+const helmet = require('helmet')
+
+const morgan = require('morgan')
+
+const routes = require('./routes')
+
 const app = express()
 
-// dotenv.config()
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+});
 
 mongoose.set('strictQuery', false)
 
 // Middleware
 app.use(express.json())
+app.use(cors())
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true}))
+app.use(helmet())
+app.use(helmet.crossOriginResourcePolicy({policy:"cross-origin"}))
+app.use(morgan("common"))
+app.use('/api/', routes);
+app.use(limiter);
 
 // DB config
 if (process.env.NODE_ENV !== 'production'){
     dotenv.config()
 }
-
 const PORT = process.env.PORT || 8001
-
 const CONNECTION = process.env.CONNECTION_URL
-
 const mongoConnect = async () => {
     try {
         await mongoose.connect(CONNECTION)
@@ -40,5 +56,5 @@ const mongoConnect = async () => {
 }
 mongoConnect()
 
-// Endpoints
+// Test Connection 
 app.get('/', (req, res) => res.status(200).send('Welcome'))
