@@ -7,41 +7,41 @@ module.exports = {
     try {
       const { toAccount, amount } = req.body;
 
-      const sourceAccount = await User.findOne({
+      let account1 = await User.findOne({
         accountNumber: req.user.accountNumber,
       });
 
-      if (!sourceAccount) {
+      if (!account1) {
         return res.status(404).json({ message: 'User account not found ' });
       }
 
-      const destinationAccount = await User.findOne({
+      let account2 = await User.findOne({
         accountNumber: toAccount,
       });
 
-      if (!destinationAccount) {
+      if (!account2) {
         return res
           .status(400)
           .json({ message: ' Invalid Designation Account ' });
       }
 
-      if (sourceAccount.balance < amount) {
+      if (account1.balance < amount) {
         return res
           .status(400)
           .json({ message: 'Insufficient fund to initiate transfer' });
       }
 
-      sourceAccount.balance -= amount;
-      destinationAccount.balance += amount;
+      account1.balance -= amount;
+      account2.balance += amount;
 
       // Save updated accounts
-      await sourceAccount.save();
-      await destinationAccount.save();
+      await account1.save();
+      await acccount2.save();
 
       // Create transaction record
       const newTransaction = new Transaction({
-        fromAccountId: sourceAccount._id,
-        toAccountId: destinationAccount._id,
+        fromAccountId: account1._id,
+        toAccountId: account2._id,
         amount: amount,
       });
 
